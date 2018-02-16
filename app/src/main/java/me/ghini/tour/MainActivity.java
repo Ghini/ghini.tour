@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         List<OverlayItem> items = db.getPOIs();
 
         // the POI overlay
-        POIOverlay = new ItemizedOverlayWithFocus<OverlayItem>(context, items,
+        POIOverlay = new ItemizedOverlayWithFocus<>(context, items,
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             private void playback(final int index, final OverlayItem item, boolean start){
                 TextView text = findViewById(R.id.text);
@@ -138,6 +138,12 @@ public class MainActivity extends AppCompatActivity {
         if (mediaPlayer != null)
             mediaPlayer.release();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), resID);
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                onPlayStop(findViewById(R.id.playStopButton));
+            }
+        });
         ImageButton button = findViewById(R.id.playPauseButton);
         if (start) {
             mediaPlayer.start();
@@ -195,10 +201,9 @@ class TaxonomyDatabase extends SQLiteAssetHelper {
     }
 
     List<OverlayItem> getPOIs() {
-        List<OverlayItem> items = new ArrayList<OverlayItem>();
+        List<OverlayItem> items = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = null;
-        c = db.rawQuery("select title, description, lat, lon from poi;", new String[] {});
+        Cursor c = db.rawQuery("select title, description, lat, lon from poi;", new String[] {});
         try {
             while (c.moveToNext()) {
                 items.add(new OverlayItem(c.getString(0), c.getString(1), new GeoPoint(c.getDouble(2), c.getDouble(3))));
