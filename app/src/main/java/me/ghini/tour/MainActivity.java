@@ -1,15 +1,22 @@
 package me.ghini.tour;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -38,8 +45,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
+ * ghini.tour is a osmdroid-based tourist data browser.
  */
 public class MainActivity extends AppCompatActivity {
     MapView map = null;
@@ -47,10 +53,57 @@ public class MainActivity extends AppCompatActivity {
     ItemizedOverlayWithFocus<OverlayItem> POIOverlay;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_zoom_world) {
+            GeoPoint startPoint = new GeoPoint(5.5, -74.5);
+            map.getController().setZoom(5);
+            return true;
+        } else if (id == R.id.action_zoom_gps) {
+            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return false;
+            }
+            GeoPoint currentLocation;
+            Location location = null;
+            if (locationManager != null) {
+                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                map.getController().setCenter(currentLocation);
+            }
+            return true;
+        } else if (id == R.id.action_zoom_location) {
+            return true;
+        } else if (id == R.id.action_get_locations) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
-        //important! set your user agent to prevent getting banned from the osm servers
+        Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
         setContentView(R.layout.activity_fullscreen);
 
@@ -116,8 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
         /* the initial centre point */
         IMapController mapController = map.getController();
-//        GeoPoint startPoint = new GeoPoint(5.5, -74.5);
-//        mapController.setZoom(5);
         mapController.setZoom(16);
         GeoPoint startPoint = new GeoPoint(7.5925, -80.9625);
         mapController.setCenter(startPoint);

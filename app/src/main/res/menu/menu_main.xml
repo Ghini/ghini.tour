@@ -3,8 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="me.ghini.tour.MainActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_get_locations"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_get_locations"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_zoom_world"
+        android:orderInCategory="100"
+        android:title="@string/action_zoom_world"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_zoom_location"
+        android:orderInCategory="100"
+        android:title="@string/action_zoom_location"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_zoom_gps"
+        android:orderInCategory="100"
+        android:title="@string/action_zoom_gps"
         app:showAsAction="never" />
 </menu>

@@ -4,4 +4,8 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="action_settings">settings</string>
+    <string name="action_zoom_gps">centre on GPS location</string>
+    <string name="action_zoom_location">zoom back to location</string>
+    <string name="action_zoom_world">zoom back to world</string>
+    <string name="action_get_locations">get locations from server</string>
 </resources>
