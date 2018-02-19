@@ -35,22 +35,32 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.CopyrightOverlay;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
+import org.osmdroid.views.overlay.Overlay;
 import org.osmdroid.views.overlay.OverlayItem;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
-
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 
 /**
  * ghini.tour is a osmdroid-based tourist data browser.
  */
 public class MainActivity extends AppCompatActivity {
+    GeoPoint chosenCentre = null;
+    Integer chosenZoom = null;
     MapView map = null;
     MediaPlayer mediaPlayer = null;
-    ItemizedOverlayWithFocus<OverlayItem> POIOverlay;
+    ItemizedOverlayWithFocus<OverlayItem> POIsOverlay;
+    private int RSS_DOWNLOAD_REQUEST_CODE = 12392192;
+    ItemizedOverlayWithFocus<OverlayItem> locationsOverlay;
+    private int selectedLocationId;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_zoom_world) {
-            GeoPoint startPoint = new GeoPoint(5.5, -74.5);
             map.getController().setZoom(5);
+            map.getController().setCenter(new GeoPoint(10.0, -79.8));
+            setZoom(5);
             return true;
         } else if (id == R.id.action_zoom_gps) {
             LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -91,12 +102,28 @@ public class MainActivity extends AppCompatActivity {
             }
             return true;
         } else if (id == R.id.action_zoom_location) {
+            zoomToChosenLocation();
             return true;
         } else if (id == R.id.action_get_locations) {
+            URL ghiniWeb = null;
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void zoomToChosenLocation() {
+        map.getController().setZoom(chosenZoom);
+        map.getController().setCenter(chosenCentre);
+        setZoom(chosenZoom);
+    }
+
+    private String getValueOf(Node node, String name) {
+        Element element = (Element) node;
+        NodeList byTagName = element.getElementsByTagName(name);
+        Element chosenElement = (Element) byTagName.item(0);
+        byTagName = chosenElement.getChildNodes();
+        return (byTagName.item(0)).getNodeValue();
     }
 
     @Override
@@ -120,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onZoom(final ZoomEvent e) {
-                POIOverlay.setEnabled(e.getZoomLevel() > 16);
+                setZoom(e.getZoomLevel());
                 return true;
             }
         }, 250 ));
@@ -134,20 +161,18 @@ public class MainActivity extends AppCompatActivity {
         locationOverlay.enableMyLocation();
         map.getOverlays().add(locationOverlay);
 
-        // POIs is an other overlay - points should come from a database
+        // POIs and locations are two distinct overlays - both come from the database
         TaxonomyDatabase db = new TaxonomyDatabase(context);
 
-        List<OverlayItem> items = db.getPOIs();
-
         // the POI overlay
-        POIOverlay = new ItemizedOverlayWithFocus<>(context, items,
+        POIsOverlay = new ItemizedOverlayWithFocus<>(context, db.getPOIs(),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             private void playback(final int index, final OverlayItem item, boolean start){
                 TextView text = findViewById(R.id.text);
                 text.setText(item.getTitle());
                 try {
                     int resID=getResources().getIdentifier(String.format(Locale.ENGLISH, "a%04d", index), "raw", getPackageName());
-                    startPlayback(resID, start);
+                    selectPointOfInterest(resID, start);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -163,15 +188,38 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        POIOverlay.setFocusItemsOnTap(false);
-        map.getOverlays().add(POIOverlay);
-        POIOverlay.setEnabled(false);
+        POIsOverlay.setFocusItemsOnTap(false);
+
+        // the POI overlay
+        locationsOverlay = new ItemizedOverlayWithFocus<>(context, db.getLocations(),
+                new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+                    @Override
+                    public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
+                        String title = item.getTitle();
+                        Integer locationId = Integer.parseInt(item.getSnippet());
+                        selectLocation(title, locationId, false);
+                        return false;
+                    }
+                    @Override
+                    public boolean onItemLongPress(final int index, final OverlayItem item) {
+                        String title = item.getTitle();
+                        Integer locationId = Integer.parseInt(item.getSnippet());
+                        selectLocation(title, locationId, true);
+                        return false;
+                    }
+                });
+        locationsOverlay.setFocusItemsOnTap(false);
+        map.getOverlays().add(locationsOverlay);
+        locationsOverlay.setEnabled(true);
 
         /* the initial centre point */
+        // chosenCentre = new GeoPoint(5.5, -74.5);
+        // chosenZoom = 5;
+        chosenCentre = new GeoPoint(7.5925, -80.9625);
+        chosenZoom = 16;
         IMapController mapController = map.getController();
-        mapController.setZoom(16);
-        GeoPoint startPoint = new GeoPoint(7.5925, -80.9625);
-        mapController.setCenter(startPoint);
+        mapController.setZoom(chosenZoom);
+        mapController.setCenter(chosenCentre);
 
         /* the scale bar */
         ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(map);
@@ -185,7 +233,34 @@ public class MainActivity extends AppCompatActivity {
         map.getOverlays().add(new CopyrightOverlay(context));
     }
 
-    void startPlayback(int resID, boolean start){
+    private void setZoom(int zoomLevel) {
+        List<Overlay> overlays = map.getOverlays();
+        map.getOverlays().remove(locationsOverlay);
+        map.getOverlays().remove(POIsOverlay);
+        if (zoomLevel > 15) {
+            map.getOverlays().add(POIsOverlay);
+        } else {
+            map.getOverlays().add(locationsOverlay);
+        }
+    }
+
+    void selectLocation(String title, Integer locationId, boolean immediate){
+        selectedLocationId = locationId;
+        TextView text = findViewById(R.id.text);
+        text.setText(title);
+        if (immediate){
+            onChooseLocation(null);
+        }
+
+        findViewById(R.id.playPauseButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.playStopButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.chooseLocationButton).setVisibility(View.VISIBLE);
+    }
+
+    void selectPointOfInterest(int resID, boolean start){
+        findViewById(R.id.playPauseButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.playStopButton).setVisibility(View.VISIBLE);
+        findViewById(R.id.chooseLocationButton).setVisibility(View.INVISIBLE);
         if (mediaPlayer != null)
             mediaPlayer.release();
         mediaPlayer = MediaPlayer.create(getApplicationContext(), resID);
@@ -195,12 +270,12 @@ public class MainActivity extends AppCompatActivity {
                 onPlayStop(findViewById(R.id.playStopButton));
             }
         });
-        ImageButton button = findViewById(R.id.playPauseButton);
+        ImageButton playButton = findViewById(R.id.playPauseButton);
         if (start) {
             mediaPlayer.start();
-            button.setImageResource(R.drawable.ic_media_pause);
+            playButton.setImageResource(R.drawable.ic_media_pause);
         } else {
-            button.setImageResource(R.drawable.ic_media_play);
+            playButton.setImageResource(R.drawable.ic_media_play);
         }
     }
 
@@ -239,12 +314,18 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    public void onChooseLocation(View view) {
+        TaxonomyDatabase db = new TaxonomyDatabase(getApplicationContext());
+        chosenCentre = db.getLocationCentre(selectedLocationId);
+        chosenZoom = db.getLocationZoom(selectedLocationId);
+        zoomToChosenLocation();
+    }
 }
 
 class TaxonomyDatabase extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "poi.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     TaxonomyDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -263,5 +344,44 @@ class TaxonomyDatabase extends SQLiteAssetHelper {
             c.close();
         }
         return items;
+    }
+
+    List<OverlayItem> getLocations() {
+        List<OverlayItem> items = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        String q = "select title, id, lat, lon, zoom from location";
+        Cursor c = db.rawQuery(q, new String[] {});
+        try {
+            while (c.moveToNext()) {
+                items.add(new OverlayItem(c.getString(0), c.getString(1), new GeoPoint(c.getDouble(2), c.getDouble(3))));
+            }
+        } finally {
+            c.close();
+        }
+        return items;
+    }
+
+    GeoPoint getLocationCentre(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String q = "select title, description, lat, lon, zoom from location where id=?";
+        Cursor c = db.rawQuery(q, new String[] {Integer.toString(id)});
+        GeoPoint result = null;
+        if(c.moveToFirst()) {
+            result = new GeoPoint(c.getDouble(2), c.getDouble(3));
+        }
+        c.close();
+        return result;
+    }
+
+    Integer getLocationZoom(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String q = "select title, description, lat, lon, zoom from location where id=?";
+        Cursor c = db.rawQuery(q, new String[] {Integer.toString(id)});
+        Integer result = null;
+        if(c.moveToFirst()) {
+            result = c.getInt(4);
+        }
+        c.close();
+        return result;
     }
 }

@@ -40,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:onClick="onPlayPause"
-        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/playStopButton"
         app:srcCompat="@drawable/ic_media_play" />
@@ -51,12 +50,23 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:onClick="onPlayStop"
-        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/playPauseButton"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_media_stop" />
+
+    <ImageButton
+        android:id="@+id/chooseLocationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:onClick="onChooseLocation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/playPauseButton"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_action_choose_location" />
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
