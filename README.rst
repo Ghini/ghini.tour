@@ -51,3 +51,17 @@ We haven't decided yet, but I wish to
   and then translations to whatever other languages we desire,
 * Let ghini.tour download POIs, texts and audio from ghini.me,
 * The server at ghini.me would be producing the audio files automatically,
+
+technical notes (mostly to myself)
+--------------------------------------
+
+connect to the phone `adb -d shell` or emulator `adb shell`
+
+connect to the POI database::
+
+  sqlite3 /data/data/me.ghini.tour/databases/poi.db
+
+initial GPS position for screenshots::
+
+  7.59237;-80.9624
+
