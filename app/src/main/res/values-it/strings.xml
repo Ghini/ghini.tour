@@ -1,2 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="action_zoom_gps">centrare sulla posizione GPS</string>
+    <string name="action_zoom_location">tornare alla località</string>
+    <string name="action_zoom_world">tornare al mondo</string>
+    <string name="action_get_locations">ottenere località dal servitore</string>
+</resources>
