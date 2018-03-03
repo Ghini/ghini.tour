@@ -55,20 +55,21 @@ explaining tasks
 -----------------------------------
 
 Among the tasks of the garden administrator we mentioned some that are not
-so obvious and which I'm going to explain, giving you choices among options.
+so obvious and for which an explanation is in order.  Please consider the
+following options.
 
 providing a map
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#. OpenStreetMap.org: edit http://osm.org until it accurately describes your
+#. **OpenStreetMap.org**: edit http://osm.org until it accurately describes your
    garden.
-#. GeoTIFF: georeference a topographic map of your garden: for those who
+#. **GeoTIFF**: georeference a topographic map of your garden: for those who
    can't physically visit your garden, this provides all necessary
    information in order to editing osm.org.
-#. provide a topographic map of your garden, and ask us to georeference it
+#. provide a **topographic map** of your garden, and ask us to georeference it
    (it should contain a geographic grid): this results in a rather precise
    GeoTIFF.
-#. provide a realistic map of your garden, and ask us to warp it: this
+#. provide a **realistic map** of your garden, and ask us to warp it: this
    results in a possibly usable GeoTIFF and works best if you are able to
    collect and provide GPS traces.
 
@@ -91,16 +92,17 @@ give it a ``txt`` extension.  I know from bitter experience that Windows and
 Mac do not make this task easy at all, and if you do manage to save things
 as I'm suggesting, they will save files without making clear which encoding
 you're using, causing even more trouble downstream, so if you don't feel
-comfortable with `vi` nor `emacs`, please just write all your panels in one
-office document and let me split them and save properly.
+comfortable with ``vi`` nor ``emacs``, please just write all your panels in one
+office document and leave to others the task of splitting and saving them
+properly.
 
 Translate each panel to as many languages as you need, and keep the
 translations separated.  If you do use text files, just keep each version in
 its own directory.  If you're putting all panels in one office document,
 call the document as the language.
 
-Now to the task of pin-pointing the spots in the garden.  Here, we have even
-more options, and they are all equally viable.
+Now to the task of pin-pointing the spots in the garden.  We also have
+several options, and they are all equally viable.
 
 1. Do it on paper: using a realistic map of your garden, put a dot for each
    panel, and clearly number it.
