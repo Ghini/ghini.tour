@@ -21,7 +21,7 @@ garden.
 configuring and installing
 -------------------------------
 
-As a garden administrators willing to provide a ghini.tour of their garden,
+As a garden administrators willing to provide a ghini.tour of your garden,
 you need to:
 
 * Make sure that openstreetmap precisely and accurately describes your garden,
@@ -46,10 +46,13 @@ keeping track of tours
 
 We haven't decided yet, but I wish to
 
+* Let ghini.tour download POIs, texts and audio from ghini.me,
+
 * Have tour texts on weblate, with one configuration marked as the "source"
   and then translations to whatever other languages we desire,
-* Let ghini.tour download POIs, texts and audio from ghini.me,
 * The server at ghini.me would be producing the audio files automatically,
+  (probably not: the quality of automatic TTS is maybe good enough for
+  personal use, but not really for a tour.)
 
 explaining tasks
 -----------------------------------
