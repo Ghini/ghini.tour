@@ -58,7 +58,7 @@ Among the tasks of the garden administrator we mentioned some that are not
 so obvious and which I'm going to explain, giving you choices among options.
 
 providing a map
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 #. OpenStreetMap.org: edit http://osm.org until it accurately describes your
    garden.
@@ -76,7 +76,7 @@ I think that providing a topographic map of your garden is the option that
 best balances difficulties and guarantees the best result.
   
 adding POI in the garden
------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let's first of all assume you already know what you want to say, and where.
 that is, you know that in a specific spot of your garden you want to have a
@@ -115,11 +115,13 @@ more options, and they are all equally viable.
    as copied from openstreetmap.
 3. use QGIS and produce a spatialite database (this we would do based on
    your data, so if you do this yourself, you're sparing us time): open your
-   garden project in QGIS, add either OSM or your own GetTIFF layer, create
+   garden project in QGIS, add either OSM or your own GeoTIFF layer, create
    a spatialite layer of type Point, add a text column for the panel title,
    and one for the panel content.  Now please enter each panel as a feature:
    click on the panel location, a dialog will show, requiring you to enter
    the point id, the panel title, the panel content.  Repeat for each panel.
+   The result of all this is the spatialite database to which you added the
+   Point layer.
   
 technical notes (mostly to myself)
 --------------------------------------
