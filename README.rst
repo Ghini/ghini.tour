@@ -116,9 +116,9 @@ several options, and they are all equally viable.
    * Zoom in as far as possible.
    * Now for each of your panels
 
-      * right click on the spot where you want to place the virtual panel, and choose ``show address``.
-      * This activates a side pane on your screen, with the precise coordinates of your intended location.
-      * Select, Copy, then Paste in the spreadsheet.
+     * right click on the spot where you want to place the virtual panel, and choose ``show address``.
+     * This activates a side pane on your screen, with the precise coordinates of your intended location.
+     * Select, Copy, then Paste in the spreadsheet.
    * The spreadsheet you produce should contain as many rows as there are panels, and at least the two columns: one with the panel identifier, one with both coordinates as copied from openstreetmap.
    * You can also separate latitude and longitude if you wish, it won't do harm I guess.
 
