@@ -80,21 +80,21 @@ adding POI in the garden
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Let's first of all assume you already know what you want to say, and where.
-that is, you know that in a specific spot of your garden you want to have a
+That is, you know that in a specific spot of your garden you want to have a
 specific panel, or maybe you even already have it physically, and you want
 to send me its digital version.
 
-Give it each panel a unique number, so we can identify it by this number.
+Give each panel a unique number, so we can identify it by this number.
 
-The best thing you could do to reduce costs on my side, it would be to save
+The best thing you could do to reduce costs downstream, it would be to save
 each panel in its own plain text file, calling it as the panel number, and
-give it a ``txt`` extension.  I know from bitter experience that Windows and
-Mac do not make this task easy at all, and if you do manage to save things
-as I'm suggesting, they will save files without making clear which encoding
-you're using, causing even more trouble downstream, so if you don't feel
-comfortable with ``vi`` nor ``emacs``, please just write all your panels in one
-office document and leave to others the task of splitting and saving them
-properly.
+give it a ``txt`` extension.  Bitter experience has demonstrated that
+Windows and Mac, but in particular Mac, do not make this task easy at all,
+and if you do manage to save things as I'm suggesting, they will save files
+without making clear which encoding you're using, causing even more trouble
+downstream, so if you don't feel comfortable with ``vi`` nor ``emacs``,
+please just write all your panels in one office document and leave to others
+the task of splitting and saving them properly.
 
 Translate each panel to as many languages as you need, and keep the
 translations separated.  If you do use text files, just keep each version in
