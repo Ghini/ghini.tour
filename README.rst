@@ -109,9 +109,7 @@ several options, and they are all equally viable.
 
 1. Do it on **paper**:
 
-   * using a realistic map of your garden, put a dot for each panel, and
-     clearly number it.
-
+   * using a realistic map of your garden, put a dot for each panel, and clearly number it.
 2. Use **openstreetmap** and produce a **spreadsheet**:
 
    * open http://osm.org in a desktop browser and navigate to your garden.
@@ -121,29 +119,23 @@ several options, and they are all equally viable.
       * right click on the spot where you want to place the virtual panel, and choose ``show address``.
       * This activates a side pane on your screen, with the precise coordinates of your intended location.
       * Select, Copy, then Paste in the spreadsheet.
-   * The spreadsheet you produce should contain as many rows as there are
-     panels, and at least the two columns: one with the panel identifier,
-     one with both coordinates as copied from openstreetmap.
-   * You can also separate latitude and longitude if you wish, it won't do
-     harm I guess.
+   * The spreadsheet you produce should contain as many rows as there are panels, and at least the two columns: one with the panel identifier, one with both coordinates as copied from openstreetmap.
+   * You can also separate latitude and longitude if you wish, it won't do harm I guess.
 
-3. Use **QGIS** and produce a **spatialite** database (for us downstream it is just
-   as practical as the spreadsheet):
-   
+3. Use **QGIS** and produce a **spatialite** database (for us downstream it is just as practical as the spreadsheet):
+
    * open your garden project in QGIS,
    * add either OSM or your own GeoTIFF layer,
    * create a spatialite layer:
-   
+
      * choose type Point,
      * add a text column for the panel title,
      * and one for the panel content.
    * Now please enter each panel as a feature:
-   
-     * click on the panel location, a dialog will show, requiring you to
-       enter the point id, the panel title, the panel content.
+
+     * click on the panel location, a dialog will show, requiring you to enter the point id, the panel title, the panel content.
      * Repeat for each panel.
-   * The result of all this is the spatialite database to which you added
-     the Point layer.
+   * The result of all this is the spatialite database to which you added the Point layer.
   
 technical notes (mostly to myself)
 --------------------------------------
