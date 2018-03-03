@@ -1,2 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="action_zoom_location">arrière à l’emplacement</string>
+    <string name="action_zoom_world">arrière au monde</string>
+    <string name="action_get_locations">obtenir les emplacements du serveur</string>
+</resources>
