@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources><string name="action_zoom_location">arrière à l’emplacement</string>
+<resources><string name="action_zoom_location">arrière à l\'emplacement</string>
     <string name="action_zoom_world">arrière au monde</string>
     <string name="action_get_locations">obtenir les emplacements du serveur</string>
+    <string name="action_zoom_gps">arrière au point GPS</string>
 </resources>

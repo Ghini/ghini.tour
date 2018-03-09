@@ -31,7 +31,7 @@ you need to:
 * Apart from the openstreetmap edits, send the data to me, so I can include
   it in our data repository.
 * Some financial support would be welcome: hosting your data costs me money.
-  
+
 Garden visitors only need to:
 
 * Install the free and ads-free ghini.tour from google play,
@@ -78,7 +78,7 @@ providing a map
 
 I think that providing a topographic map of your garden is the option that
 best balances difficulties and guarantees the best result.
-  
+
 adding POI in the garden
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -136,7 +136,30 @@ several options, and they are all equally viable.
      * click on the panel location, a dialog will show, requiring you to enter the point id, the panel title, the panel content.
      * Repeat for each panel.
    * The result of all this is the spatialite database to which you added the Point layer.
-  
+
+exporting your plants to ghini.web
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This has little to do with ghini.tour but it's closely related to the above,
+because it's also about writing into ghini.web, it's the **d2w** flow in the
+data stream overview.
+
+The part still related to ghini.tour is where you specify the geographic
+coordinates of your garden, and the preferred zoom level for centering in
+the map.  This isn't (yet) information you can insert in the ghini.desktop
+database.  I should open an issue for this.
+
+Anyhow, this is still completely manual, and it amounts to producing a
+javascript file that you can execute on the ghini.web server, which would
+write your data into the ghini.web mongodb database.
+
+I suppose we could do this with a simple mako report, but I've never given
+it a concrete thought, yet.
+
+The second step, where you import this script in the ghini.web mongodb
+database, could happen directly from ghini.desktop, or via the mail to the
+administrator of the ghini.web site.
+
 technical notes (mostly to myself)
 --------------------------------------
 
@@ -149,4 +172,3 @@ connect to the POI database::
 initial GPS position for screenshots::
 
   7.59237;-80.9624
-
