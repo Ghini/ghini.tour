@@ -8,4 +8,5 @@
     <string name="noLocationSelected">please first select a location</string>
     <string name="noPanelSelected">please first select a panel</string>
     <string name="noGPSError">something went wrong while reading from GPS</string>
+    <string name="action_about">about ...</string>
 </resources>
