@@ -3,4 +3,7 @@
     <string name="action_zoom_location">volver a la ubicación</string>
     <string name="action_zoom_world">de vuelta al mundo</string>
     <string name="action_get_locations">obtener ubicaciones del servidor</string>
+    <string name="noLocationSelected">primero hay que escoger una ubicación</string>
+    <string name="noPanelSelected">primero hay que escoger un panel</string>
+    <string name="noGPSError">no puedo leer del GPS</string>
 </resources>

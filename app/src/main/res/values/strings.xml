@@ -5,4 +5,7 @@
     <string name="action_zoom_location">zoom back to location</string>
     <string name="action_zoom_world">zoom back to world</string>
     <string name="action_get_locations">get locations from server</string>
+    <string name="noLocationSelected">please first select a location</string>
+    <string name="noPanelSelected">please first select a panel</string>
+    <string name="noGPSError">something went wrong while reading from GPS</string>
 </resources>

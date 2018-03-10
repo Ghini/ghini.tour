@@ -3,4 +3,6 @@
     <string name="action_zoom_world">arrière au monde</string>
     <string name="action_get_locations">obtenir les emplacements du serveur</string>
     <string name="action_zoom_gps">arrière au point GPS</string>
+    <string name="noLocationSelected">il faut selectioner un emplacement</string>
+    <string name="noPanelSelected">il faut selectioner un panel</string>
 </resources>

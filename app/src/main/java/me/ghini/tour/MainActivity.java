@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -53,6 +54,10 @@ import java.util.Locale;
  * ghini.tour is a osmdroid-based tourist data browser.
  */
 public class MainActivity extends AppCompatActivity {
+    final private int NONE_SELECTED = -1;
+    final private int LOCATION_TYPE = 1;
+    final private int PANEL_TYPE = 2;
+
     GeoPoint chosenCentre = null;
     Integer chosenZoom = null;
     MapView map = null;
@@ -60,13 +65,64 @@ public class MainActivity extends AppCompatActivity {
     ItemizedOverlayWithFocus<OverlayItem> POIsOverlay;
     private int RSS_DOWNLOAD_REQUEST_CODE = 12392192;
     ItemizedOverlayWithFocus<OverlayItem> locationsOverlay;
-    private int selectedLocationId;
+    private int selectedType = NONE_SELECTED;
+    private int selectedId = NONE_SELECTED;
+    private String selectedTitle = "";
+    private int chosenLocationId = NONE_SELECTED;
+    private String chosenLocationTitle = "";
+    private Bundle myState = new Bundle();
+
+    private void updateBottomLine() {
+        switch (selectedType) {
+            case NONE_SELECTED: {
+                findViewById(R.id.playPauseButton).setVisibility(View.INVISIBLE);
+                findViewById(R.id.playStopButton).setVisibility(View.INVISIBLE);
+                findViewById(R.id.chooseLocationButton).setVisibility(View.INVISIBLE);
+                selectedTitle = chosenLocationTitle;
+            }
+            break;
+            case PANEL_TYPE: {
+                findViewById(R.id.playPauseButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.playStopButton).setVisibility(View.VISIBLE);
+                findViewById(R.id.chooseLocationButton).setVisibility(View.INVISIBLE);
+            }
+            break;
+            case LOCATION_TYPE: {
+                findViewById(R.id.playPauseButton).setVisibility(View.INVISIBLE);
+                findViewById(R.id.playStopButton).setVisibility(View.INVISIBLE);
+                findViewById(R.id.chooseLocationButton).setVisibility(View.VISIBLE);
+            }
+            break;
+        }
+        TextView text = findViewById(R.id.text);
+        text.setText(selectedTitle);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    private void zoomToWorld() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        if(chosenLocationId != NONE_SELECTED) {
+            selectedId = chosenLocationId;
+            selectedTitle = chosenLocationTitle;
+            selectedType = LOCATION_TYPE;
+        } else {
+            selectedType = NONE_SELECTED;
+            selectedId = NONE_SELECTED;
+        }
+        updateBottomLine();
+
+        map.getController().setZoom(5);
+        map.getController().setCenter(new GeoPoint(10.0, -79.8));
+        setZoom(5);
     }
 
     @Override
@@ -78,31 +134,37 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_zoom_world) {
-            map.getController().setZoom(5);
-            map.getController().setCenter(new GeoPoint(10.0, -79.8));
-            setZoom(5);
+            zoomToWorld();
             return true;
         } else if (id == R.id.action_zoom_gps) {
-            LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
-                return false;
-            }
-            GeoPoint currentLocation;
-            Location location = null;
-            if (locationManager != null) {
-                location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
-                map.getController().setCenter(currentLocation);
+            try {
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return false;
+                }
+                GeoPoint currentLocation;
+                Location location = null;
+                if (locationManager != null) {
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
+                    map.getController().setCenter(currentLocation);
+                }
+            } catch (Exception e) {
+                Toast.makeText(this, R.string.noGPSError, Toast.LENGTH_LONG).show();
             }
             return true;
         } else if (id == R.id.action_zoom_location) {
-            zoomToChosenLocation();
+            if (chosenLocationId == NONE_SELECTED) {
+                Toast.makeText(this, "please first choose a location", Toast.LENGTH_LONG).show();
+            } else {
+                zoomToChosenLocation();
+            }
             return true;
         } else if (id == R.id.action_get_locations) {
             URL ghiniWeb = null;
@@ -113,22 +175,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void zoomToChosenLocation() {
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        selectedId = chosenLocationId;
+        selectedTitle = chosenLocationTitle;
+        selectedType = LOCATION_TYPE;
         map.getController().setZoom(chosenZoom);
         map.getController().setCenter(chosenCentre);
         setZoom(chosenZoom);
-    }
-
-    private String getValueOf(Node node, String name) {
-        Element element = (Element) node;
-        NodeList byTagName = element.getElementsByTagName(name);
-        Element chosenElement = (Element) byTagName.item(0);
-        byTagName = chosenElement.getChildNodes();
-        return (byTagName.item(0)).getNodeValue();
+        updateBottomLine();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null){
+            myState.putAll(savedInstanceState);
+        } else {
+            myState.putInt("worldZoom", 5);
+            myState.putDouble("worldCentreLat", 10.0);
+            myState.putDouble("worldCentreLon", -79.8);
+            myState.putString("chosenLocationTitle", "");
+        }
+
         Context context = getApplicationContext();
         Configuration.getInstance().setUserAgentValue(BuildConfig.APPLICATION_ID);
         Configuration.getInstance().load(context, PreferenceManager.getDefaultSharedPreferences(context));
@@ -153,13 +224,13 @@ public class MainActivity extends AppCompatActivity {
         }, 250 ));
 
         // my location position - it's an overlay
-        MyLocationNewOverlay locationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context), map);
+        MyLocationNewOverlay gpsLocationOverlay = new MyLocationNewOverlay(new GpsMyLocationProvider(context), map);
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.ic_location_dot);
-        locationOverlay.setPersonIcon(icon);
-        locationOverlay.setPersonHotspot(icon.getHeight()/2,icon.getHeight()/2);
-        locationOverlay.enableMyLocation();
-        map.getOverlays().add(locationOverlay);
+        gpsLocationOverlay.setPersonIcon(icon);
+        gpsLocationOverlay.setPersonHotspot(icon.getHeight()/2,icon.getHeight()/2);
+        gpsLocationOverlay.enableMyLocation();
+        map.getOverlays().add(gpsLocationOverlay);
 
         // POIs and locations are two distinct overlays - both come from the database
         TaxonomyDatabase db = new TaxonomyDatabase(context);
@@ -167,12 +238,14 @@ public class MainActivity extends AppCompatActivity {
         // the POI overlay
         POIsOverlay = new ItemizedOverlayWithFocus<>(context, db.getPOIs(),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
-            private void playback(final int index, final OverlayItem item, boolean start){
-                TextView text = findViewById(R.id.text);
-                text.setText(item.getTitle());
+            private void playback(final int index, final OverlayItem item, boolean start) {
+                selectedType = PANEL_TYPE;
+                selectedId = index;
+                selectedTitle = item.getTitle();
+                updateBottomLine();
                 try {
                     int resID=getResources().getIdentifier(String.format(Locale.ENGLISH, "a%04d", index), "raw", getPackageName());
-                    selectPointOfInterest(resID, start);
+                    prepareMediaPlayer(resID, start);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -190,36 +263,36 @@ public class MainActivity extends AppCompatActivity {
         });
         POIsOverlay.setFocusItemsOnTap(false);
 
-        // the POI overlay
+        // the locations overlay
         locationsOverlay = new ItemizedOverlayWithFocus<>(context, db.getLocations(),
                 new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
                     @Override
                     public boolean onItemSingleTapUp(final int index, final OverlayItem item) {
-                        String title = item.getTitle();
-                        Integer locationId = Integer.parseInt(item.getSnippet());
-                        selectLocation(title, locationId, false);
+                        selectedTitle = item.getTitle();
+                        selectedId = Integer.parseInt(item.getSnippet());
+                        selectLocation(false);
                         return false;
                     }
                     @Override
                     public boolean onItemLongPress(final int index, final OverlayItem item) {
-                        String title = item.getTitle();
-                        Integer locationId = Integer.parseInt(item.getSnippet());
-                        selectLocation(title, locationId, true);
+                        selectedTitle = item.getTitle();
+                        selectedId = Integer.parseInt(item.getSnippet());
+                        selectLocation(true);
                         return false;
+                    }
+                    // local shared code
+                    private void selectLocation(boolean choose) {
+                        selectedType = LOCATION_TYPE;
+                        if (choose) {
+                            chosenLocationId = selectedId;
+                            chosenLocationTitle = selectedTitle;
+                            onChooseLocation(null);
+                        }
+                        updateBottomLine();
                     }
                 });
         locationsOverlay.setFocusItemsOnTap(false);
-        map.getOverlays().add(locationsOverlay);
         locationsOverlay.setEnabled(true);
-
-        /* the initial centre point */
-        // chosenCentre = new GeoPoint(5.5, -74.5);
-        // chosenZoom = 5;
-        chosenCentre = new GeoPoint(7.5925, -80.9625);
-        chosenZoom = 16;
-        IMapController mapController = map.getController();
-        mapController.setZoom(chosenZoom);
-        mapController.setCenter(chosenCentre);
 
         /* the scale bar */
         ScaleBarOverlay scaleBarOverlay = new ScaleBarOverlay(map);
@@ -231,33 +304,29 @@ public class MainActivity extends AppCompatActivity {
         map.getOverlays().add(scaleBarOverlay);
 
         map.getOverlays().add(new CopyrightOverlay(context));
+
+        zoomToWorld();
     }
 
     private void setZoom(int zoomLevel) {
         List<Overlay> overlays = map.getOverlays();
-        map.getOverlays().remove(locationsOverlay);
-        map.getOverlays().remove(POIsOverlay);
+        overlays.remove(locationsOverlay);
+        overlays.remove(POIsOverlay);
         if (zoomLevel > 15) {
-            map.getOverlays().add(POIsOverlay);
+            if (selectedType == LOCATION_TYPE) {
+                selectedType = NONE_SELECTED;
+            }
+            overlays.add(POIsOverlay);
         } else {
-            map.getOverlays().add(locationsOverlay);
+            if (selectedType == PANEL_TYPE) {
+                selectedType = NONE_SELECTED;
+            }
+            overlays.add(locationsOverlay);
         }
+        updateBottomLine();
     }
 
-    void selectLocation(String title, Integer locationId, boolean immediate){
-        selectedLocationId = locationId;
-        TextView text = findViewById(R.id.text);
-        text.setText(title);
-        if (immediate){
-            onChooseLocation(null);
-        }
-
-        findViewById(R.id.playPauseButton).setVisibility(View.INVISIBLE);
-        findViewById(R.id.playStopButton).setVisibility(View.INVISIBLE);
-        findViewById(R.id.chooseLocationButton).setVisibility(View.VISIBLE);
-    }
-
-    void selectPointOfInterest(int resID, boolean start){
+    void prepareMediaPlayer(int resID, boolean start){
         findViewById(R.id.playPauseButton).setVisibility(View.VISIBLE);
         findViewById(R.id.playStopButton).setVisibility(View.VISIBLE);
         findViewById(R.id.chooseLocationButton).setVisibility(View.INVISIBLE);
@@ -280,15 +349,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onPlayPause(View view) {
-        if (mediaPlayer != null) {
-            ImageButton button = (ImageButton)view;
-            if (mediaPlayer.isPlaying()) {
-                mediaPlayer.pause();
-                button.setImageResource(R.drawable.ic_media_play);
-            } else {
-                mediaPlayer.start();
-                button.setImageResource(R.drawable.ic_media_pause);
-            }
+        if (mediaPlayer == null) {
+            Toast.makeText(this, R.string.noPanelSelected, Toast.LENGTH_LONG).show();
+            return;
+        }
+        ImageButton button = (ImageButton)view;
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+            button.setImageResource(R.drawable.ic_media_play);
+        } else {
+            mediaPlayer.start();
+            button.setImageResource(R.drawable.ic_media_pause);
         }
     }
 
@@ -315,10 +386,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onChooseLocation(View view) {
-        TaxonomyDatabase db = new TaxonomyDatabase(getApplicationContext());
-        chosenCentre = db.getLocationCentre(selectedLocationId);
-        chosenZoom = db.getLocationZoom(selectedLocationId);
-        zoomToChosenLocation();
+        if(selectedId == NONE_SELECTED){
+            Toast.makeText(this, R.string.noLocationSelected, Toast.LENGTH_LONG).show();
+        } else {
+            TaxonomyDatabase db = new TaxonomyDatabase(getApplicationContext());
+            selectedType = LOCATION_TYPE;
+            chosenLocationId = selectedId;
+            chosenLocationTitle = db.getLocationTitle(selectedId);
+            chosenCentre = db.getLocationCentre(selectedId);
+            chosenZoom = db.getLocationZoom(selectedId);
+            zoomToChosenLocation();
+        }
     }
 }
 
@@ -380,6 +458,18 @@ class TaxonomyDatabase extends SQLiteAssetHelper {
         Integer result = null;
         if(c.moveToFirst()) {
             result = c.getInt(4);
+        }
+        c.close();
+        return result;
+    }
+
+    String  getLocationTitle(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        String q = "select title, description, lat, lon, zoom from location where id=?";
+        Cursor c = db.rawQuery(q, new String[] {Integer.toString(id)});
+        String result = null;
+        if(c.moveToFirst()) {
+            result = c.getString(0);
         }
         c.close();
         return result;
