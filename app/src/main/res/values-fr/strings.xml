@@ -5,4 +5,6 @@
     <string name="action_zoom_gps">arrière au point GPS</string>
     <string name="noLocationSelected">il faut selectioner un emplacement</string>
     <string name="noPanelSelected">il faut selectioner un panel</string>
+<string name="noGPSError">quelque chose s’est mal passé lors de la lecture du GPS</string>
+    <string name="action_about">sur ...</string>
 </resources>
