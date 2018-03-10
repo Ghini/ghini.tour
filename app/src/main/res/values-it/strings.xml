@@ -6,5 +6,5 @@
     <string name="noLocationSelected">seleziona prima una località</string>
     <string name="noPanelSelected">seleziona prima un pannello</string>
     <string name="noGPSError">non riesco a leggere dal GPS</string>
-<string name="action_about">Info su</string>
+<string name="action_about">Info su ...</string>
 </resources>
