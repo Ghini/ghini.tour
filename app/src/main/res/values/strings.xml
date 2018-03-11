@@ -9,4 +9,5 @@
     <string name="noPanelSelected">please first select a panel</string>
     <string name="noGPSError">something went wrong while reading from GPS</string>
     <string name="action_about">about ...</string>
+    <string name="notImplementedYet">not implemented yet</string>
 </resources>
