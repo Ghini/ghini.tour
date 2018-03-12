@@ -2,6 +2,7 @@ package me.ghini.tour;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -127,6 +128,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_zoom_world) {
             zoomToWorld();
             return true;
+        } else if (id == R.id.action_about) {
+            AboutBox.Show(MainActivity.this);
+        } else if (id == R.id.action_refresh) {
+            Intent intent = new Intent(this, UpdateActivity.class);
+            startActivity(intent);
         } else if (id == R.id.action_zoom_gps) {
             try {
                 LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
