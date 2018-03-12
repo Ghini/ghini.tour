@@ -146,9 +146,8 @@ public class MainActivity extends AppCompatActivity {
                     return false;
                 }
                 GeoPoint currentLocation;
-                Location location = null;
                 if (locationManager != null) {
-                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     currentLocation = new GeoPoint(location.getLatitude(), location.getLongitude());
                     map.getController().setCenter(currentLocation);
                 }
