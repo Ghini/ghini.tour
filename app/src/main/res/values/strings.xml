@@ -8,5 +8,9 @@
     <string name="noLocationSelected">please first select a location</string>
     <string name="noPanelSelected">please first select a panel</string>
     <string name="noGPSError">something went wrong while reading from GPS</string>
-    <string name="action_about">about ...</string>
+    <string name="action_about">about …</string>
+    <string name="notImplementedYet">not implemented yet</string>
+    <string name="aboutText">virtual tour in open air locations</string>
+    <string name="action_refresh">refresh podcasts</string>
+    <string name="title_activity_update">update garden podcasts</string>
 </resources>
