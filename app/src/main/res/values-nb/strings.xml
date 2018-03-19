@@ -10,5 +10,5 @@
 <string name="notImplementedYet">ikke implementert enda</string>
     <string name="aboutText">virtuell tur utendørs</string>
     <string name="action_refresh">gjenoppfrisk nettradioopptak</string>
-    <string name="title_activity_update">oppdater hage-nettradioopptak</string>
+    <string name="title_activity_update">gjenoppfrisk hage-nettradioopptak</string>
 </resources>
