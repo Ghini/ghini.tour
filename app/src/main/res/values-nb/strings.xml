@@ -6,5 +6,9 @@
     <string name="noLocationSelected">velg plassering først</string>
     <string name="noPanelSelected">velg panel først</string>
     <string name="noGPSError">noe gikk galt under innlesing fra GPS</string>
-    <string name="action_about">om</string>
+    <string name="action_about">om …</string>
+<string name="notImplementedYet">ikke implementert enda</string>
+    <string name="aboutText">virtuell tur utendørs</string>
+    <string name="action_refresh">gjenoppfrisk nettradioopptak</string>
+    <string name="title_activity_update">oppdater hage-nettradioopptak</string>
 </resources>
