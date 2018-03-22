@@ -1,2 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="action_zoom_gps">sentrer på GPS-plassering</string>
+    <string name="action_zoom_location">still inn forstørrelse tilbake til plassering</string>
+    <string name="action_zoom_world">still inn forstørrelse tilbake til verden</string>
+    <string name="action_get_locations">hent plasseringer fra denne tjeneren</string>
+    <string name="noLocationSelected">velg plassering først</string>
+    <string name="noPanelSelected">velg panel først</string>
+    <string name="noGPSError">noe gikk galt under innlesing fra GPS</string>
+    <string name="action_about">om …</string>
+<string name="notImplementedYet">ikke implementert enda</string>
+    <string name="aboutText">virtuell tur utendørs</string>
+    <string name="action_refresh">gjenoppfrisk nettradioopptak</string>
+    <string name="title_activity_update">gjenoppfrisk hage-nettradioopptak</string>
+</resources>
