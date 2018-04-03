@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
@@ -46,6 +47,10 @@ import java.util.Locale;
  * ghini.tour is a osmdroid-based tourist data browser.
  */
 public class MainActivity extends AppCompatActivity {
+    private static final String ZOOM_KEY = "worldZoom";
+    private static final String LATITUDE_KEY = "worldCentreLat";
+    private static final String LONGITUDE_KEY = "worldCentreLon";
+    private static final String CHOSEN_LOCATION_KEY = "chosenLocationTitle";
     final private int NONE_SELECTED = -1;
     final private int LOCATION_TYPE = 1;
     final private int PANEL_TYPE = 2;
@@ -191,10 +196,10 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState != null){
             myState.putAll(savedInstanceState);
         } else {
-            myState.putInt("worldZoom", 5);
-            myState.putDouble("worldCentreLat", 10.0);
-            myState.putDouble("worldCentreLon", -79.8);
-            myState.putString("chosenLocationTitle", "");
+            myState.putInt(ZOOM_KEY, 5);
+            myState.putDouble(LATITUDE_KEY, 10.0);
+            myState.putDouble(LONGITUDE_KEY, -79.8);
+            myState.putString(CHOSEN_LOCATION_KEY, "");
         }
 
         Context context = getApplicationContext();
@@ -210,11 +215,15 @@ public class MainActivity extends AppCompatActivity {
         map.setMapListener(new DelayedMapListener(new MapListener() {
             @Override
             public boolean onScroll(ScrollEvent event) {
+                IGeoPoint a = map.getMapCenter();
+                myState.putDouble(LATITUDE_KEY, a.getLatitude());
+                myState.putDouble(LONGITUDE_KEY, a.getLongitude());
                 return false;
             }
 
             @Override
             public boolean onZoom(final ZoomEvent e) {
+                myState.putInt(ZOOM_KEY, e.getZoomLevel());
                 setZoom(e.getZoomLevel());
                 return true;
             }
@@ -303,6 +312,13 @@ public class MainActivity extends AppCompatActivity {
         map.getOverlays().add(new CopyrightOverlay(context));
 
         zoomToWorld();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putAll(myState);
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
     }
 
     private void setZoom(int zoomLevel) {
