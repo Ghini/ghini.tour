@@ -1,2 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<?xml version='1.0' encoding='UTF-8'?>
+<resources><string name="action_get_locations">helyszínek lekérése a szerverről</string>
+    <string name="noLocationSelected">először helyszínt kell választani</string>
+    <string name="noPanelSelected">először panelt kell választani</string>
+    <string name="noGPSError">hiba a GPS adatok beolvasásakor</string>
+    <string name="action_about">about …</string>
+    <string name="notImplementedYet">még nincs megvalósítva</string>
+    </resources>
