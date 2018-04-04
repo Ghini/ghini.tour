@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         map.getOverlays().add(gpsLocationOverlay);
 
         // POIs and locations are two distinct overlays - both come from the database
-        TaxonomyDatabase db = new TaxonomyDatabase(context);
+        TourDatabase db = new TourDatabase(context);
 
         // the POI overlay
         POIsOverlay = new ItemizedOverlayWithFocus<>(context, db.getPOIs(),
@@ -250,9 +250,10 @@ public class MainActivity extends AppCompatActivity {
                 selectedTitle = item.getTitle();
                 updateBottomLine();
                 try {
-                    int resID=getResources().getIdentifier(String.format(Locale.ENGLISH, "a%04d", index), "raw", getPackageName());
+                    int resID=getResources().getIdentifier(item.getSnippet(), "raw", getPackageName());
                     prepareMediaPlayer(resID, start);
                 } catch (Exception e) {
+                    noMediaPlayer();
                     e.printStackTrace();
                 }
             }
@@ -311,7 +312,10 @@ public class MainActivity extends AppCompatActivity {
 
         map.getOverlays().add(new CopyrightOverlay(context));
 
-        zoomToWorld();
+        map.getController().setZoom(myState.getInt(ZOOM_KEY));
+        map.getController().setCenter(
+                new GeoPoint(myState.getDouble(LATITUDE_KEY),
+                        myState.getDouble(LONGITUDE_KEY)));
     }
 
     @Override
@@ -337,6 +341,13 @@ public class MainActivity extends AppCompatActivity {
             overlays.add(locationsOverlay);
         }
         updateBottomLine();
+    }
+
+    void noMediaPlayer() {
+        mediaPlayer = null;
+        findViewById(R.id.playPauseButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.playStopButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.chooseLocationButton).setVisibility(View.INVISIBLE);
     }
 
     void prepareMediaPlayer(int resID, boolean start){
@@ -402,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
         if(selectedId == NONE_SELECTED){
             Toast.makeText(this, R.string.noLocationSelected, Toast.LENGTH_LONG).show();
         } else {
-            TaxonomyDatabase db = new TaxonomyDatabase(getApplicationContext());
+            TourDatabase db = new TourDatabase(getApplicationContext());
             selectedType = LOCATION_TYPE;
             chosenLocationId = selectedId;
             chosenLocationTitle = db.getLocationTitle(selectedId);

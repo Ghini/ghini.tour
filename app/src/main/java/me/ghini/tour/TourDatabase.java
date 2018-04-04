@@ -11,18 +11,19 @@ import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by mario on 3/11/18.
  */
 
 
-class TaxonomyDatabase extends SQLiteAssetHelper {
+class TourDatabase extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "poi.db";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
-    TaxonomyDatabase(Context context) {
+    TourDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         setForcedUpgrade();
     }
@@ -30,10 +31,16 @@ class TaxonomyDatabase extends SQLiteAssetHelper {
     List<OverlayItem> getPOIs() {
         List<OverlayItem> items = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("select title, description, lat, lon from poi;", new String[] {});
+        Cursor c = db.rawQuery("select title, location_id, sub_id, lat, lon from poi;",
+                new String[] {});
         try {
             while (c.moveToNext()) {
-                items.add(new OverlayItem(c.getString(0), c.getString(1), new GeoPoint(c.getDouble(2), c.getDouble(3))));
+                String snippet = String.format(
+                        Locale.ENGLISH, "g%03d_%04d",
+                        c.getInt(1), c.getInt(2));
+                items.add(new OverlayItem(
+                        c.getString(0), snippet,
+                        new GeoPoint(c.getDouble(3), c.getDouble(4))));
             }
         } finally {
             c.close();
