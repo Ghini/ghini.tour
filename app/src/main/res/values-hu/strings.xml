@@ -4,5 +4,11 @@
     <string name="noPanelSelected">először panelt kell választani</string>
     <string name="noGPSError">hiba a GPS adatok beolvasásakor</string>
     <string name="action_about">about …</string>
-    <string name="notImplementedYet">még nincs megvalósítva</string>
-    </resources>
+    <string name="notImplementedYet">még nincs implementálva</string>
+    <string name="action_zoom_gps">centre on GPS location</string>
+    <string name="action_zoom_location">zoom back to location</string>
+    <string name="action_zoom_world">zoom back to world</string>
+    <string name="aboutText">virtuális körséta a szabadtéri helyszíneken</string>
+    <string name="action_refresh">podcast-ok frissítése</string>
+    <string name="title_activity_update">kerti podcast-ok frissítése</string>
+</resources>
