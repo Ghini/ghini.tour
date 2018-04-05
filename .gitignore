@@ -13,3 +13,5 @@ app/release
 _panels/*/??/*.txt
 _panels/raw/
 *~
+/_panels/*.js
+/_panels/*.sql
