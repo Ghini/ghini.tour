@@ -1,45 +1,46 @@
 id: 7
+name: Jardín Botánico de Quito
 
-| id | title                                                 |       lat |        lon |
-|----+-------------------------------------------------------+-----------+------------|
-| 01 | Qué es un jardín botánico?                            | -0.186143 |  -78.48514 |
-| 02 | Mapa de los Ecosistemas                               | -0.186266 | -78.485169 |
-| 03 | La Palma de Cera                                      |  -0.18638 | -78.485211 |
-| 04 | El Podocarpus                                         | -0.186434 | -78.485538 |
-| 05 | Bosque Nublado                                        | -0.186421 | -78.485567 |
-| 06 | Plantas áereas                                        | -0.186439 | -78.485726 |
-| 07 | El páramo                                             | -0.186389 | -78.485815 |
-| 08 | Los bosques andinos                                   | -0.186279 | -78.485957 |
-| 09 | La "revolución agricola"                              | -0.185851 | -78.486109 |
-| 10 | alimentos en peligro                                  | -0.185862 | -78.485826 |
-| 11 | ...y poco a poco dejó de ser fea                      | -0.185877 | -78.485643 |
-| 12 | ¡olores de la cocina y la medicina!                   | -0.185969 | -78.485805 |
-| 13 | El sonido de las plantas                              | -0.185956 | -78.485897 |
-| 14 | propiedades de algunas plantas                        | -0.185822 | -78.485637 |
-| 15 | somo gente de papa y maíz                             | -0.185684 | -78.486027 |
-| 16 | el chontaduro                                         | -0.185522 | -78.486019 |
-| 17 | casa Shuar                                            | -0.185445 | -78.485913 |
-| 18 | Verde que muerde  esp/ingl                            | -0.186301 | -78.486481 |
-| 19 | ¡Orquídeas, el primer patrimonio natural del Ecuador! | -0.186763 | -78.486279 |
-| 20 | Dracula cochliops                                     | -0.186657 | -78.486277 |
-| 21 | datos increíbles                                      | -0.186574 | -78.486244 |
-| 22 | ¿qué hace una orquídea sea una orquídea?              |  -0.18639 | -78.486356 |
-| 23 | El arte de la seducción                               | -0.186604 | -78.486164 |
-| 24 | La piña                                               | -0.186838 | -78.486112 |
-| 25 | Gracias a una orquídea                                | -0.186848 |  -78.48603 |
-| 26 | Los Páramos                                           | -0.186596 | -78.486029 |
-| 27 | Los cactaceaes                                        | -0.186595 | -78.486008 |
-| 28 | La Cascarilla                                         | -0.187041 |  -78.48567 |
-| 29 | La Flor del Inca                                      | -0.186957 | -78.485589 |
-| 30 | El Tocte                                              | -0.186582 |  -78.48536 |
-| 31 | Totoras                                               | -0.186248 | -78.484987 |
-| 32 | Orquídeas medicinales                                 | -0.186184 | -78.484967 |
-| 33 | Helechos tan grandes como árboles                     |  -0.18636 |  -78.48586 |
-| 34 | del amor de la Pacha Mama crece el chacra andina      |  -0.18586 | -78.485886 |
-| 35 | Plantas bien arropadas contra el frío                 | -0.186179 |  -78.48606 |
-| 36 | El páramo: mucho mas que pajonal                      | -0.186213 | -78.486126 |
-| 37 | Las almohadillas se abrazan para calentarse           | -0.186467 | -78.486146 |
-| 38 | el páramo: un gran humedal                            |  -0.18648 | -78.486075 |
-| 39 | la necesidad de curarse                               | -0.185784 | -78.485624 |
-| -1 | Aves de Quito                                         | -0.186234 | -78.484985 |
-| -2 | Mapa del Jardín Botánico                              | -0.186109 |  -78.48514 |
+| id | title                                                 |       lat |        lon | minzoom |
+|----+-------------------------------------------------------+-----------+------------+---------|
+| 01 | Qué es un jardín botánico?                            | -0.186143 |  -78.48514 |      18 |
+| 02 | Mapa de los Ecosistemas                               | -0.186266 | -78.485169 |      16 |
+| 03 | La Palma de Cera                                      |  -0.18638 | -78.485211 |      18 |
+| 04 | El Podocarpus                                         | -0.186434 | -78.485538 |      20 |
+| 05 | Bosque Nublado                                        | -0.186421 | -78.485567 |      18 |
+| 06 | Plantas áereas                                        | -0.186439 | -78.485726 |      18 |
+| 07 | El páramo                                             | -0.186389 | -78.485815 |      16 |
+| 08 | Los bosques andinos                                   | -0.186279 | -78.485957 |      18 |
+| 09 | La revolución agricola                                | -0.185851 | -78.486109 |      18 |
+| 10 | alimentos en peligro                                  | -0.185862 | -78.485826 |      18 |
+| 11 | ...y poco a poco dejó de ser fea                      | -0.185877 | -78.485643 |      18 |
+| 12 | ¡olores de la cocina y la medicina!                   | -0.185969 | -78.485805 |      20 |
+| 13 | El sonido de las plantas                              | -0.185956 | -78.485897 |      18 |
+| 14 | propiedades de algunas plantas                        | -0.185822 | -78.485637 |      20 |
+| 15 | somo gente de papa y maíz                             | -0.185684 | -78.486027 |      18 |
+| 16 | el chontaduro                                         | -0.185522 | -78.486019 |      16 |
+| 17 | casa Shuar                                            | -0.185445 | -78.485913 |      18 |
+| 18 | Verde que muerde  esp/ingl                            | -0.186301 | -78.486481 |      18 |
+| 19 | ¡Orquídeas, el primer patrimonio natural del Ecuador! | -0.186763 | -78.486279 |      16 |
+| 20 | Dracula cochliops                                     | -0.186657 | -78.486277 |      18 |
+| 21 | datos increíbles                                      | -0.186574 | -78.486244 |      18 |
+| 22 | ¿qué hace una orquídea sea una orquídea?              |  -0.18639 | -78.486356 |      18 |
+| 23 | El arte de la seducción                               | -0.186604 | -78.486164 |      18 |
+| 24 | La piña                                               | -0.186838 | -78.486112 |      18 |
+| 25 | Gracias a una orquídea                                | -0.186848 |  -78.48603 |      18 |
+| 26 | Los Páramos                                           | -0.186596 | -78.486029 |      20 |
+| 27 | Los cactaceaes                                        | -0.186595 | -78.486008 |      16 |
+| 28 | La Cascarilla                                         | -0.187041 |  -78.48567 |      18 |
+| 29 | La Flor del Inca                                      | -0.186957 | -78.485589 |      18 |
+| 30 | El Tocte                                              | -0.186582 |  -78.48536 |      18 |
+| 31 | Totoras                                               | -0.186248 | -78.484987 |      18 |
+| 32 | Orquídeas medicinales                                 | -0.186184 | -78.484967 |      18 |
+| 33 | Helechos tan grandes como árboles                     |  -0.18636 |  -78.48586 |      20 |
+| 34 | del amor de la Pacha Mama crece el chacra andina      |  -0.18586 | -78.485886 |      20 |
+| 35 | Plantas bien arropadas contra el frío                 | -0.186179 |  -78.48606 |      18 |
+| 36 | El páramo: mucho mas que pajonal                      | -0.186213 | -78.486126 |      18 |
+| 37 | Las almohadillas se abrazan para calentarse           | -0.186467 | -78.486146 |      18 |
+| 38 | el páramo: un gran humedal                            |  -0.18648 | -78.486075 |      18 |
+| 39 | la necesidad de curarse                               | -0.185784 | -78.485624 |      18 |
+| -1 | Aves de Quito                                         | -0.186234 | -78.484985 |      18 |
+| -2 | Mapa del Jardín Botánico                              | -0.186109 |  -78.48514 |      18 |
