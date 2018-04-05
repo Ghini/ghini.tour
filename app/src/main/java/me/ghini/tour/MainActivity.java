@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.events.DelayedMapListener;
 import org.osmdroid.events.MapListener;
@@ -39,13 +40,17 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.net.URL;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
  * ghini.tour is a osmdroid-based tourist data browser.
  */
 public class MainActivity extends AppCompatActivity {
+    private static final String ZOOM_KEY = "worldZoom";
+    private static final String LATITUDE_KEY = "worldCentreLat";
+    private static final String LONGITUDE_KEY = "worldCentreLon";
+    private static final String CHOSEN_ID_KEY = "chosenLocationId";
+    private static final String CHOSEN_TITLE_KEY = "chosenLocationTitle";
     final private int NONE_SELECTED = -1;
     final private int LOCATION_TYPE = 1;
     final private int PANEL_TYPE = 2;
@@ -191,10 +196,10 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState != null){
             myState.putAll(savedInstanceState);
         } else {
-            myState.putInt("worldZoom", 5);
-            myState.putDouble("worldCentreLat", 10.0);
-            myState.putDouble("worldCentreLon", -79.8);
-            myState.putString("chosenLocationTitle", "");
+            myState.putInt(ZOOM_KEY, 5);
+            myState.putDouble(LATITUDE_KEY, 10.0);
+            myState.putDouble(LONGITUDE_KEY, -79.8);
+            myState.putInt(CHOSEN_ID_KEY, NONE_SELECTED);
         }
 
         Context context = getApplicationContext();
@@ -210,11 +215,15 @@ public class MainActivity extends AppCompatActivity {
         map.setMapListener(new DelayedMapListener(new MapListener() {
             @Override
             public boolean onScroll(ScrollEvent event) {
+                IGeoPoint a = map.getMapCenter();
+                myState.putDouble(LATITUDE_KEY, a.getLatitude());
+                myState.putDouble(LONGITUDE_KEY, a.getLongitude());
                 return false;
             }
 
             @Override
             public boolean onZoom(final ZoomEvent e) {
+                myState.putInt(ZOOM_KEY, e.getZoomLevel());
                 setZoom(e.getZoomLevel());
                 return true;
             }
@@ -230,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         map.getOverlays().add(gpsLocationOverlay);
 
         // POIs and locations are two distinct overlays - both come from the database
-        TaxonomyDatabase db = new TaxonomyDatabase(context);
+        TourDatabase db = new TourDatabase(context);
 
         // the POI overlay
         POIsOverlay = new ItemizedOverlayWithFocus<>(context, db.getPOIs(),
@@ -241,9 +250,10 @@ public class MainActivity extends AppCompatActivity {
                 selectedTitle = item.getTitle();
                 updateBottomLine();
                 try {
-                    int resID=getResources().getIdentifier(String.format(Locale.ENGLISH, "a%04d", index), "raw", getPackageName());
+                    int resID=getResources().getIdentifier(item.getSnippet(), "raw", getPackageName());
                     prepareMediaPlayer(resID, start);
                 } catch (Exception e) {
+                    noMediaPlayer();
                     e.printStackTrace();
                 }
             }
@@ -302,7 +312,21 @@ public class MainActivity extends AppCompatActivity {
 
         map.getOverlays().add(new CopyrightOverlay(context));
 
-        zoomToWorld();
+        chosenLocationId = myState.getInt(CHOSEN_ID_KEY);
+        chosenLocationTitle = myState.getString(CHOSEN_TITLE_KEY);
+        map.getController().setCenter(
+                new GeoPoint(myState.getDouble(LATITUDE_KEY),
+                        myState.getDouble(LONGITUDE_KEY)));
+        // the following will trigger the above onZoom,
+        // calling this.setZoom, calling this.updateBottomLine.
+        map.getController().setZoom(myState.getInt(ZOOM_KEY));
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putAll(myState);
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(outState);
     }
 
     private void setZoom(int zoomLevel) {
@@ -321,6 +345,13 @@ public class MainActivity extends AppCompatActivity {
             overlays.add(locationsOverlay);
         }
         updateBottomLine();
+    }
+
+    void noMediaPlayer() {
+        mediaPlayer = null;
+        findViewById(R.id.playPauseButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.playStopButton).setVisibility(View.INVISIBLE);
+        findViewById(R.id.chooseLocationButton).setVisibility(View.INVISIBLE);
     }
 
     void prepareMediaPlayer(int resID, boolean start){
@@ -386,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
         if(selectedId == NONE_SELECTED){
             Toast.makeText(this, R.string.noLocationSelected, Toast.LENGTH_LONG).show();
         } else {
-            TaxonomyDatabase db = new TaxonomyDatabase(getApplicationContext());
+            TourDatabase db = new TourDatabase(getApplicationContext());
             selectedType = LOCATION_TYPE;
             chosenLocationId = selectedId;
             chosenLocationTitle = db.getLocationTitle(selectedId);
