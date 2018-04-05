@@ -10,4 +10,6 @@
 app/src/main/res/raw/
 gradle
 app/release
-_panels/
+_panels/*/??/*.txt
+_panels/raw/
+*~
