@@ -40,7 +40,6 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 import java.net.URL;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
@@ -50,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String ZOOM_KEY = "worldZoom";
     private static final String LATITUDE_KEY = "worldCentreLat";
     private static final String LONGITUDE_KEY = "worldCentreLon";
-    private static final String CHOSEN_LOCATION_KEY = "chosenLocationTitle";
+    private static final String CHOSEN_ID_KEY = "chosenLocationId";
+    private static final String CHOSEN_TITLE_KEY = "chosenLocationTitle";
     final private int NONE_SELECTED = -1;
     final private int LOCATION_TYPE = 1;
     final private int PANEL_TYPE = 2;
@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
             myState.putInt(ZOOM_KEY, 5);
             myState.putDouble(LATITUDE_KEY, 10.0);
             myState.putDouble(LONGITUDE_KEY, -79.8);
-            myState.putString(CHOSEN_LOCATION_KEY, "");
+            myState.putInt(CHOSEN_ID_KEY, NONE_SELECTED);
         }
 
         Context context = getApplicationContext();
@@ -312,10 +312,14 @@ public class MainActivity extends AppCompatActivity {
 
         map.getOverlays().add(new CopyrightOverlay(context));
 
-        map.getController().setZoom(myState.getInt(ZOOM_KEY));
+        chosenLocationId = myState.getInt(CHOSEN_ID_KEY);
+        chosenLocationTitle = myState.getString(CHOSEN_TITLE_KEY);
         map.getController().setCenter(
                 new GeoPoint(myState.getDouble(LATITUDE_KEY),
                         myState.getDouble(LONGITUDE_KEY)));
+        // the following will trigger the above onZoom,
+        // calling this.setZoom, calling this.updateBottomLine.
+        map.getController().setZoom(myState.getInt(ZOOM_KEY));
     }
 
     @Override
