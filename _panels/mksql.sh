@@ -29,7 +29,7 @@ do
     # text is spoken, is language dependente, and is inferred from sub_id
     # and location_id.
     
-    cat $garden | sed -ne "s/| \([0-9]*\) | \(.*[^ ]\)[ ]*| \(.*\) | \(.*\) |.*/insert into poi (sub_id, title, lat, lon, location_id) values (\1, '\2',\3, \4, $garden_id);/p" >> update.sql
+    cat $garden | sed -ne "s/|[ 0]*\([0-9]*\) |[ ]*\(.*[^ ]\)[ ]*|[ ]*\(.*[^ ]\)[ ]*|[ ]*\(.*[^ ]\)[ ]*|.*|/insert into poi (sub_id, title, lat, lon, location_id) values (\1, '\2',\3, \4, $garden_id);/p" >> update.sql
 
     # mongo assumes org table starts with the 5 columns
     # | id | title | lat | lon | minzoom |
@@ -40,7 +40,7 @@ do
     # dependent, and we should grab it but for the time being, we skip it.
     
     description=""
-    do_this='s/| \([0-9]*\) | \(.*[^ ]\)[ ]*| \(.*\) | \(.*\) |[ ]*\([0-9]*\) |.*/db.infopanels.insert({"garden": "'$garden_name'", "title": "\2", "lat": \3, "lon": \4, "description": "", "zoom": \5, "audio": "g_'$(printf %03d $garden_id)'_0\1.mp3", "garden_id": '$garden_id'});/p'
+    do_this='s/|[ 0]*\([0-9]*\) |[ ]*\(.*[^ ]\)[ ]*|[ ]*\(.*[^ ]\)[ ]*|[ ]*\(.*[^ ]\)[ ]*|[ ]*\([0-9]*[^ ]\)[ ]*|.*/db.infopanels.insert({"garden": "'$garden_name'", "title": "\2", "lat": \3, "lon": \4, "description": "", "zoom": \5, "id_within_garden": \1, "garden_id": '$garden_id'});/p'
     cat $garden | sed -ne "$do_this" >> update.js
 
 done
