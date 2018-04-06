@@ -35,7 +35,7 @@ do
     # dependent, and we should grab it but for the time being, we skip it.
     
     description=""
-    do_this='s/| \([0-9]*\) | \(.*[^ ]\)[ ]*| \(.*\) | \(.*\) |[ ]*\([0-9]*\) |.*/db.infopanels.insert({"garden": "'$garden_name'", "title": "\2", "lat": \3, "lon": \4, "description": "", "zoom": \5, "audio": "g_0\1_'$(printf %03d $garden_id)'.mp3"});/p'
+    do_this='s/| \([0-9]*\) | \(.*[^ ]\)[ ]*| \(.*\) | \(.*\) |[ ]*\([0-9]*\) |.*/db.infopanels.insert({"garden": "'$garden_name'", "title": "\2", "lat": \3, "lon": \4, "description": "", "zoom": \5, "audio": "g_'$(printf %03d $garden_id)'_0\1.mp3", "garden_id": '$garden_id'});/p'
     cat $garden | sed -ne "$do_this" >> update.js
 
 done
