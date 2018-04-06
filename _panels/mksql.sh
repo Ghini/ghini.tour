@@ -1,7 +1,12 @@
 #!/bin/bash
 
-# we first produce the sql instructions, necessary to update the poi table
-# in the sqlite ghini.tour database.
+# this the script implements the stream g2w4t.
+#
+# input: geographic infopanels data.
+# output: javascript to update the ghini.web mongodb.
+# --
+# as a shortcut, only as a shortcut, we are producing the SQL for updating
+# the tour database.
 
 echo "begin transaction;" > update.sql
 echo "delete from poi;" >> update.sql
