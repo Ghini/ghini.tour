@@ -4,7 +4,7 @@
     <string name="action_zoom_world">still inn forstørrelse tilbake til verden</string>
     <string name="action_get_locations">hent plasseringer fra denne tjeneren</string>
     <string name="noLocationSelected">velg plassering først</string>
-    <string name="noPanelSelected">velg panel først</string>
+    <string name="noPanelSelected">dette panelet later ikke til å ha lyd</string>
     <string name="noGPSError">noe gikk galt under innlesing fra GPS</string>
     <string name="action_about">om …</string>
 <string name="notImplementedYet">ikke implementert enda</string>
