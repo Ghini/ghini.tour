@@ -4,7 +4,9 @@
     <string name="action_get_locations">obtenir les emplacements du serveur</string>
     <string name="action_zoom_gps">arrière au point GPS</string>
     <string name="noLocationSelected">il faut sélectionner un emplacement</string>
-    <string name="noPanelSelected">il faut sélectionner un panel</string>
+    <string name="noPanelSelected">Ce panel ne semble pas avoir d\'audio</string>
 <string name="noGPSError">quelque chose s’est mal passé lors de la lecture du GPS</string>
-    <string name="action_about">A propos de ...</string>
-</resources>
+    <string name="action_about">A propos de …</string>
+<string name="notImplementedYet">Pas encore implémenté</string>
+    <string name="action_refresh">rafraîchir les podcasts</string>
+    </resources>
