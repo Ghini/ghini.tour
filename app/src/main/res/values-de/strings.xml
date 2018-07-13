@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <string name="app_name">ghini.tour</string>
-</resources>
+<string name="action_get_locations">Orte vom Server beziehen</string>
+    <string name="noLocationSelected">Zuerst einen Ort auswählen</string>
+    <string name="noPanelSelected">Zu diesem Panel scheint kein Audio zu gehören.</string>
+    <string name="action_about">über ...</string>
+    <string name="notImplementedYet">bisher nicht unterstützt</string>
+    </resources>
