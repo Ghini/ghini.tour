@@ -1,13 +1,13 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources><string name="action_get_locations">helyszínek lekérése a szerverről</string>
     <string name="noLocationSelected">először helyszínt kell választani</string>
-    <string name="noPanelSelected">először panelt kell választani</string>
+    <string name="noPanelSelected">ez a panel úgy tűnik, hogy nincs hang</string>
     <string name="noGPSError">hiba a GPS adatok beolvasásakor</string>
-    <string name="action_about">about …</string>
+    <string name="action_about">"erről  …"</string>
     <string name="notImplementedYet">még nincs implementálva</string>
-    <string name="action_zoom_gps">centre on GPS location</string>
+    <string name="action_zoom_gps">menjen a GPS helyre</string>
     <string name="action_zoom_location">zoom back to location</string>
-    <string name="action_zoom_world">zoom back to world</string>
+    <string name="action_zoom_world">zoom vissza a világ</string>
     <string name="aboutText">virtuális körséta a szabadtéri helyszíneken</string>
     <string name="action_refresh">podcast-ok frissítése</string>
     <string name="title_activity_update">kerti podcast-ok frissítése</string>
