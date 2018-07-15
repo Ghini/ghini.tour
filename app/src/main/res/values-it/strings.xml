@@ -4,7 +4,10 @@
     <string name="action_zoom_world">tornare al mondo</string>
     <string name="action_get_locations">ottenere località dal servitore</string>
     <string name="noLocationSelected">seleziona prima una località</string>
-    <string name="noPanelSelected">seleziona prima un pannello</string>
+    <string name="noPanelSelected">pannello senza audio</string>
     <string name="noGPSError">non riesco a leggere dal GPS</string>
-<string name="action_about">Info su ...</string>
+<string name="action_about">Info su …</string>
+<string name="notImplementedYet">non implementato</string>
+    <string name="action_refresh">aggiorna i podcast</string>
+    <string name="title_activity_update">aggiorna i podcast del giardino</string>
 </resources>
