@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
     <string name="app_name">ghini.tour</string>
+<string name="action_zoom_gps">GPS локація центра</string>
+    <string name="action_zoom_location">повернутися до локації</string>
+    <string name="action_zoom_world">повернути назад до світу</string>
+    <string name="action_get_locations">отримати локацію з сервера</string>
+    <string name="noLocationSelected">будь ласка, спочатку виберіть локацію</string>
+    <string name="noPanelSelected">ця панель, мабуть, не має звуку</string>
+    <string name="noGPSError">щось пішло не так під час читання з GPS</string>
+    <string name="action_about">про …</string>
+    <string name="notImplementedYet">ще не реалізовано</string>
+    <string name="aboutText">віртуальний тур в місцях на відкритому повітрі</string>
+    <string name="action_refresh">оновити подкасти</string>
+    <string name="title_activity_update">оновити садові подкасти</string>
 </resources>
