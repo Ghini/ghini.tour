@@ -3,7 +3,14 @@
     <string name="app_name">ghini.tour</string>
 <string name="action_get_locations">Orte vom Server beziehen</string>
     <string name="noLocationSelected">Zuerst einen Ort auswählen</string>
-    <string name="noPanelSelected">Zu diesem Panel scheint kein Audio zu gehören.</string>
-    <string name="action_about">über ...</string>
+    <string name="noPanelSelected">zu diesem Panel scheint kein Audio zu gehören</string>
+    <string name="action_about">über …</string>
     <string name="notImplementedYet">bisher nicht unterstützt</string>
-    </resources>
+    <string name="action_zoom_gps">auf GPS-Position zentrieren</string>
+    <string name="action_zoom_location">zurück zur Position zoomen</string>
+    <string name="action_zoom_world">zurück zur Welt zoomen</string>
+    <string name="noGPSError">etwas ging schief beim Lesen von GPS</string>
+    <string name="aboutText">virtueller Rundgang unter freiem Himmel</string>
+    <string name="action_refresh">Podcasts aktualisieren</string>
+    <string name="title_activity_update">Garten-Podcasts aktualisieren</string>
+</resources>
