@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ghini.tour</string>
+    <string name="action_zoom_gps">центровать по данным GPS</string>
+    <string name="action_zoom_location">возврат к исходному положению</string>
+    <string name="action_get_locations">Получить местоположения от сервера</string>
+    <string name="noLocationSelected">пожалуйста, сначала выберите местоположение</string>
+    <string name="noPanelSelected">у этой панели, похоже, нет звука</string>
+    <string name="noGPSError">При получении данных о местоположении произошла ошибка</string>
+    <string name="action_about">о…</string>
+    <string name="notImplementedYet">ещё не реализовано</string>
+    <string name="aboutText">виртуальный тур под открытым небом</string>
+    <string name="action_refresh">обновление подкастов</string>
 </resources>
