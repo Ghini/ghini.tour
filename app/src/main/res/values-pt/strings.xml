@@ -1,10 +1,12 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<resources><string name="action_zoom_gps">centrar no GPS</string>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_zoom_gps">centrar no GPS</string>
     <string name="action_zoom_world">ampliar para o mundo</string>
-    <string name="action_get_locations">obter as locações do servidor</string>
-    <string name="action_zoom_location">centrar na locação</string>
-<string name="noLocationSelected">selecione primeiro uma locação</string>
-    <string name="noPanelSelected">primeiro selecione um painel</string>
-    <string name="noGPSError">algo deu errado durante a leitura do GPS</string>
-    <string name="action_about">sobre ...</string>
+    <string name="action_get_locations">obter as localizações do servidor</string>
+    <string name="action_zoom_location">centrar na localização</string>
+    <string name="noLocationSelected">selecione primeiro uma localização</string>
+    <string name="noPanelSelected">este painel parece não ter áudio</string>
+    <string name="noGPSError">aconteceu algo de errado durante a leitura do GPS</string>
+    <string name="action_about">sobre…</string>
+    <string name="notImplementedYet">ainda não implementado</string>
 </resources>
