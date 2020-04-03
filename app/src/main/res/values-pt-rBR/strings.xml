@@ -7,5 +7,9 @@
     <string name="noLocationSelected">selecione primeiro uma locação</string>
     <string name="noPanelSelected">primeiro selecione um painel</string>
     <string name="noGPSError">algo deu errado durante a leitura do GPS</string>
-    <string name="action_about">sobre ...</string>
+    <string name="action_about">sobre …</string>
+    <string name="title_activity_update">atualizar o jardim de podcasts</string>
+    <string name="action_refresh">atualizar os podcasts</string>
+    <string name="aboutText">tour virtual em locais ao ar livre</string>
+    <string name="notImplementedYet">ainda não foi implementado</string>
 </resources>
