@@ -9,4 +9,7 @@
     <string name="noGPSError">aconteceu algo de errado durante a leitura do GPS</string>
     <string name="action_about">sobre…</string>
     <string name="notImplementedYet">ainda não implementado</string>
+    <string name="title_activity_update">atualizar podcasts de jardim</string>
+    <string name="action_refresh">atualizar os podcasts</string>
+    <string name="aboutText">tour virtual em locais ao ar livre</string>
 </resources>
