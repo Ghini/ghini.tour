@@ -1,2 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="noGPSError">GPS에서 읽는 동안 문제가 발생했습니다</string>
+    <string name="title_activity_update">가든 팟 캐스트 업데이트</string>
+    <string name="action_refresh">팟 캐스트 새로 고침</string>
+    <string name="aboutText">야외 장소에서 가상 투어</string>
+    <string name="notImplementedYet">아직 구현되지 않음</string>
+    <string name="action_about">소개…</string>
+    <string name="noPanelSelected">이 패널에는 오디오가 없는 것 같습니다</string>
+    <string name="noLocationSelected">먼저 위치를 선택하세요</string>
+    <string name="action_get_locations">서버에서 위치 가져 오기</string>
+    <string name="action_zoom_world">다시 세계로 확대</string>
+    <string name="action_zoom_location">위치로 다시 확대</string>
+    <string name="action_zoom_gps">GPS 위치 중심</string>
+</resources>
