@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ghini.tour</string>
+    <string name="title_activity_update">perbarui podcast taman</string>
+    <string name="aboutText">tur virtual di lokasi terbuka</string>
+    <string name="noGPSError">Ada kesalahan saat memproses GPS</string>
+    <string name="noPanelSelected">panel ini tampaknya tidak memiliki audio</string>
+    <string name="noLocationSelected">silahkan pilih lokasi terlebih dahulu</string>
+    <string name="action_get_locations">dapatkan lokasi dari server</string>
+    <string name="action_zoom_world">perbesar kembali ke dunia</string>
+    <string name="action_zoom_location">perbesar kembali ke lokasi</string>
+    <string name="action_zoom_gps">pusatkan lokasi GPS</string>
+    <string name="action_refresh">segarkan podcast</string>
+    <string name="notImplementedYet">belum diimplementasikan</string>
+    <string name="action_about">tentang …</string>
 </resources>
