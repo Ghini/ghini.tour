@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">ghini.tour</string>
+    <string name="notImplementedYet">zatím neimplementováno</string>
+    <string name="noLocationSelected">nejprve vyberte polohu</string>
+    <string name="noGPSError">při čtení z GPS se něco pokazilo</string>
+    <string name="aboutText">virtuální prohlídka na volném prostranství</string>
+    <string name="action_about">o aplikaci…</string>
+    <string name="action_refresh">obnovit podcasty</string>
+    <string name="title_activity_update">aktualizace podcastů o zahradě</string>
+    <string name="noPanelSelected">zdá se, že tento panel nemá zvuk</string>
+    <string name="action_zoom_world">oddálit zpět na celý svět</string>
+    <string name="action_get_locations">získat polohu ze serveru</string>
+    <string name="action_zoom_gps">střed v poloze GPS</string>
+    <string name="action_zoom_location">přiblížit zpět na místo</string>
 </resources>
