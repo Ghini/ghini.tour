@@ -1,2 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="noPanelSelected">wygląda na to, że ten panel nie posiada dźwięku</string>
+    <string name="noLocationSelected">proszę najpierw wybrać lokalizację</string>
+    <string name="action_zoom_location">przybliżanie z powrotem do lokalizacji</string>
+    <string name="notImplementedYet">jeszcze nie wdrożono</string>
+    <string name="action_refresh">odśwież podcasty</string>
+    <string name="title_activity_update">aktualizuj podcasty ogrodnicze</string>
+    <string name="action_about">o …</string>
+    <string name="aboutText">wirtualna wycieczka w plenerze</string>
+    <string name="noGPSError">coś poszło nie tak podczas odczytu z GPS</string>
+    <string name="action_get_locations">pobierz lokalizacje z serwera</string>
+    <string name="action_zoom_gps">wyśrodkuj na lokalizacji GPS</string>
+</resources>
